@@ -36,9 +36,18 @@ def call_onet_crawler():
 
 
 def get_stats():
+    """
+    spider.get_facebook_and_twitter_stats is a function that calls APIs of Facebook
+    and Twitter and scraps link popularity data from those sites.
+    """
     spider.get_facebook_and_twitter_stats()
 
 def populate_stats():
+    """
+    Scrapped data from Agora and Onet sites contain OpenGraph tags. OpenGraph allows
+    to filter gathered data by content type (currently we are interesed only in "article" type),
+    see when the article was updated and other useful data. 
+    """
     all_links = models.Link.objects.filter(link_type=None)
     for link in all_links:
         link.populate_og_stats()
