@@ -1,0 +1,21 @@
+[1;36m 
+ -------------- celery@warp.intio.de v3.1.16 (Cipater)
+---- **** ----- 
+--- * ***  * -- Linux-3.2.41-042stab092.3-x86_64-with-debian-7.7
+-- * - **** --- 
+- ** ---------- [config]
+- ** ---------- .> app:         tasks:0x3037850
+- ** ---------- .> transport:   mongodb://localhost:27017/celerybroker
+- ** ---------- .> results:     mongodb
+- *** --- * --- .> concurrency: 16 (prefork)
+-- ******* ---- 
+--- ***** ----- [queues]
+ -------------- .> celery           exchange=celery(direct) key=celery
+                
+[0m[0m
+[tasks]
+  . tasks.check_stats
+  . tasks.crawl_agora
+  . tasks.crawl_onet
+  . tasks.populate_stats
+[0m

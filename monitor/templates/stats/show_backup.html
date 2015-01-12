@@ -1,0 +1,121 @@
+<html>{# Load the tag library #}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge" /><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block bootstrap3_title %}Szczegóły URL{% endblock %}</title>
+    {% bootstrap_css %}
+    
+    
+    <script type="text/javascript" src="{% static "js/d3.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/c3-0.3.0/c3.min.js" %}"></script>
+    <link href="{% static "js/c3-0.3.0/c3.css" %}" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {% if 'javascript_in_head'|bootstrap_setting %}{% bootstrap_javascript jquery=True %}{% endif %}
+    {% block bootstrap3_extra_head %}{% endblock %}
+    <STYLE>
+        body{
+            font-family: @font-family-sans-serif;
+        }
+                a {
+          color: @link-color;
+          text-decoration: none;
+        
+          &:hover {
+            color: @link-hover-color;
+            text-decoration: underline;
+          }
+        }
+    </STYLE>
+</head>
+<body>
+    
+<a href="{{ HTTP_REFERER }}">Back</a>
+<h4>
+    {% block title %} {{ uri }} {% endblock %}
+</h4>
+<p>Article last update time: {{updated_time}}</p>
+<p>First time scrapped: {{created_at}}</p>
+<div class="table-responsive">
+    <div id="chart">
+        
+    </div>
+<table class="table table-condensed  table-bordered  table-striped">
+    <tr>
+        <thead>
+        <th>FB share count</th>
+        <th>FB comment count</th>
+        <th>FB restapi comment count</th>
+        <th>FB restapi share count</th>
+        <th>FB restapi like count</th>
+        <th>FB restapi total count</th>
+        <th>Twitter count</th>
+        <th>Time</th>
+        </thead>
+    </tr>
+{% for stat in stats %}
+    <tr>
+        
+        
+        <td>{{ stat.share_count }}</td>
+        <td>{{ stat.comment_count }}</td>
+        <td>{{ stat.fb_rest_comment_count }}</td>
+        <td>{{ stat.fb_rest_share_count }}</td>
+        <td>{{ stat.fb_rest_like_count }}</td>
+        <td>{{ stat.fb_rest_total_count }}</td>
+        <td>{{ stat.twitter }}</td>
+        <td>{{ stat.time }}</td>
+    </tr>
+
+{% endfor %}
+</table>
+</div>
+
+
+{% if not 'javascript_in_head'|bootstrap_setting %}{% bootstrap_javascript jquery=True %}{% endif %}
+{% block bootstrap3_extra_script %}{% endblock %}
+ 
+ <script type="text/javascript">
+ 
+ 
+var chart = c3.generate({
+    data: {
+        x: 'time',
+        xFormat : '%Y-%m-%d %H:%M:%S',
+        rows: [
+            ['Shares', 'Comments', 'REST comments', 'REST shares', 'REST likes', 'REST total', 'Twitter shares', 'time'],
+            {% for stat in stats %}
+            [{{ stat.share_count }},
+            {{ stat.comment_count }},
+            {{ stat.fb_rest_comment_count }},
+            {{ stat.fb_rest_share_count }},
+            {{ stat.fb_rest_like_count }},
+            {{ stat.fb_rest_total_count }},
+            {{ stat.twitter }},
+            '{{ stat.time|date:"Y-m-d" }} {{ stat.time|time:"H:i" }}:00'
+                 ],
+            {% endfor %}
+        ]
+    },
+    axis: {
+        x : {
+            type: 'timeseries',
+            tick: {
+            format: '%Y-%m-%d %H:%M',
+            }
+            
+        }
+    }
+});   
+ </script>
+
+</body>
+</html>

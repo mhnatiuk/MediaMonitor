@@ -1,0 +1,32 @@
+import urllib
+from BeautifulSoup import BeautifulSoup, SoupStrainer
+
+class LinkGetter(object):
+    def __init__(self, linklist):
+    """ linklist : a list of links to extract links from """
+        self.links = linklist
+        self.urls = []
+        
+    
+    
+    def recursiveUrl(url,depth):
+        if depth == 5:
+            return url
+        else:
+            page=urllib2.urlopen(url)
+            soup = BeautifulSoup(page.read())
+            newlinks = soup.find_all('a') #find just the first one
+            if len(newlinks) == 0:
+                return url
+            else:
+                for newlink in newlinks:
+                    return url, recursiveUrl(newlink,depth+1)
+
+    
+    def getLinks(domain):
+        page=urllib2.urlopen(domain)
+        soup = BeautifulSoup(page.read())
+        links = soup.find_all('a')
+        for link in links:
+            links.append(recursiveUrl(link,0))
+        return links
