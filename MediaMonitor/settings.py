@@ -14,15 +14,14 @@ import sys
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+from local_settings import SECRET_KEY, DEBUG, DATABASES, STATIC_ROOT
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l^V7%rqz#t2K.DQ;"1&R$*w2wl1lu%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =True
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
@@ -65,15 +64,6 @@ WSGI_APPLICATION = 'MediaMonitor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'mediamonitor',
-    'USER': 'django',
-    'PASSWORD' : 's1mplyN0Tcl3v3r',
-    'HOST' : '127.0.0.1'
-    }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -97,5 +87,4 @@ STATIC_URL = '/static/'
 
 
 
-STATIC_ROOT='/home/m/MediaMonitor/monitor/static'
 
