@@ -15,7 +15,7 @@ class AgoraSpider(CrawlSpider):
     """
     
     name = "agora"
-    allowed_domains = ["gazeta.pl", "wyborcza.pl", "wyborcza.biz", "plotek.pl", "sport.pl", "moto.pl", "lula.pl", "edziecko.pl", "deser.pl",  "gazetapraca.pl", "gazetadom.pl", "domiporta.pl", "alert24.pl", "gazeta.tv", "agora.pl", "searchlab.pl", "adtaily.pl", "adplayer.pl", "payper.pl", "cityinfotv.pl", "tokfm.pl", "tuba.pl"]
+    allowed_domains = ["gazeta.pl", "wyborcza.pl", "wyborcza.biz", "plotek.pl", "sport.pl", "moto.pl", "lula.pl", "edziecko.pl", "deser.pl",  "gazetapraca.pl", "gazetadom.pl", "domiporta.pl", "alert24.pl", "gazeta.tv", "agora.pl", "searchlab.pl", "tokfm.pl", "tuba.pl"]
     start_urls = ["http://www.gazeta.pl/","http://www.wyborcza.pl", "http://www.wyborcza.biz"]
 
 #    xpaths = '''//a/@href'''
