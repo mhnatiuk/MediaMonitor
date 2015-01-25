@@ -17,12 +17,18 @@ class LinkNotUnique(Exception):
 class Link(models.Model):
     """
     The main data class: stores links found on sites.
+    
     """
     uri = models.CharField(max_length=1000, blank=False, unique=True, db_index=True)
-    position = models.IntegerField(null=True)
-    domain = models.CharField(max_length=100, blank=True)
-    stats = models.TextField(blank=True, default="{}")
+    link_position_within = models.IntegerField(null=True)
+    link_id = models.CharField(max_length=1000, null=True)
+    link_number_on_site = models.IntegerField(null=True)
+    source_url = models.CharField(max_length=1000, null=True)
     ttl = models.DateTimeField(blank=True, default=None)
+    added_time =models.DateTimeField(blank=True, default=None)
+    
+    stats = models.TextField(blank=True, default="{}")
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -30,7 +36,7 @@ class Link(models.Model):
     link_type = models.CharField(max_length=100, blank=True, null=True, db_index=True)
     title = models.CharField(max_length=1000, blank=True, null=True, db_index=True)
     updated_time = models.DateTimeField(blank=True, null=True, db_index=True)
-    """ """
+    
     def save(self, *args, **kwargs):
         if self.id is not None or len( Link.objects.filter(uri=self.uri)) == 0:
             super(Link, self).save(*args, **kwargs)

@@ -5,7 +5,7 @@ Prerequisites:
 * django
 * scrapy
 * celery
-
+* pytz
 
   Roadmap:
   

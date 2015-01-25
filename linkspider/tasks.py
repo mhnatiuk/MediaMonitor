@@ -3,7 +3,7 @@ from subprocess import call
 
 
 import sys, os
-sys.path.append("/home/m/MediaMonitor")
+sys.path.append("/home/mh/MediaMonitor")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "MediaMonitor.settings")
 from monitor import models
 

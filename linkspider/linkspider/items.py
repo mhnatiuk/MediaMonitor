@@ -13,12 +13,14 @@ class AgoraItem(scrapy.Item):
         This class is a holder for a unit of scrapped data: i.e. an URI and URI'S position on site
     """
     url = scrapy.Field()
-    position = scrapy.Field()
+    link_number_on_site = scrapy.Field()
+    link_id = scrapy.Field()
+    source_url = scrapy.Field()
+    link_position_within = scrapy.Field()
+    
 
-class OnetItem(scrapy.Item):
+class OnetItem(AgoraItem):
     """
         This class is a holder for a unit of scrapped data: i.e. an URI and URI'S position on site
     """
-    url = scrapy.Field()
-    position = scrapy.Field()
-
+    pass

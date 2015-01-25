@@ -22,13 +22,29 @@ class OnetSpider(CrawlSpider):
     rules = ( Rule(LinkExtractor(allow_domains = allowed_domains ) , callback="parse", follow=True), )
     def parse(self, response):
         """
-        This function extracts url and its position on site
+        This function takes HTTPresponse object and extracts following info:
+        1. url  - target address
+        2. link_id - id given to this link. On GAZETA.pl site id is used in a strange way (as class should be used, i.e in the non-unique way)
+        3. link_position_within - link position within it's link_id
+        4. nr - number of the url as appeared in html source code
+        5. source_url - url of the site with this link
+        This function returns linkspider.items.AgoraItem instance.
         """
-
-        for nr, url in enumerate(response.xpath('//a/@href').extract()):
-            item = OnetItem()
-            item['url'] = url
-            item['position'] = nr
-            yield item
-	    #yield scrapy.Request(url, callback=self.parse)
-
+        articles = response.xpath("//article")
+        urls_postition= defaultdict(list()) # link_positions_within_id
+        
+        for article in articles:
+            section_name = article.xpath('@data-section').extract()
+            urls_in_section = article.xpath(".//a").xpath("@href").re(r'^http.*')
+            for nr, url in enumerate(urls_in_section):
+                item = OnetItem()
+                
+                urls_position[section_name].append(url)
+                
+                item['url'] = url
+                item['link_number_on_site'] = nr
+                item['link_id'] = section_name
+                item['source_url'] = response.url
+                item['link_position_within'] = len( urls_position[ section_name ] ) # our item will always be last
+                assert (item['link_position_within']-1) #but let's test that assumption
+                yield item

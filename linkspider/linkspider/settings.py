@@ -13,6 +13,7 @@ LOG_LEVEL="INFO"
 SPIDER_MODULES = ['linkspider.spiders']
 NEWSPIDER_MODULE = 'linkspider.spiders'
 
-ITEM_PIPELINES  = {'linkspider.pipelines.AgoraspiderPipeline' : 100, 'linkspider.pipelinesOnetspiderPipeline' : 101 }
+ITEM_PIPELINES  = {'linkspider.pipelines.AgoraspiderPipeline' : 100,
+                   'linkspider.pipelines.OnetspiderPipeline' : 101 }
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'linkspider/science'
